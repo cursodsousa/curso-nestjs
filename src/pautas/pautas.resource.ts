@@ -10,6 +10,10 @@ export class PautaResource {
     status: string;
 }
 
+export class NovaSessaoResource {
+    minutos: number;
+}
+
 export function toRepresentation(entity: Pauta) : PautaResource {
     const resource = new PautaResource();
     resource.id = entity.id;
