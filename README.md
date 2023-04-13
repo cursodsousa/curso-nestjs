@@ -71,3 +71,22 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+
+
+
+
+
+
+Api de Votação
+
+
+- [ ] Criar o Modulo Votos
+- [ ] Criar o Controller
+- [ ] Criar o Voto Provider (Voto e Associado)
+- [ ] Criar Service (Voto e Associado)
+- [ ] Criar Entidade Voto e Associado
+- [ ] Criar Resources
+- [ ] Exportar PautasService e Importar no VotoModule
+- [ ] Implementação
