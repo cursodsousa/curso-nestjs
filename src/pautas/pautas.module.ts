@@ -7,6 +7,7 @@ import { pautaProviders } from './pauta.providers';
 @Module({
     imports: [DatabaseModule],
     providers: [PautasService, ...pautaProviders],
-    controllers: [PautasController]
+    controllers: [PautasController],
+    exports: [PautasService]
 })
 export class PautasModule {}
