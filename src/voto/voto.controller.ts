@@ -19,13 +19,15 @@ export class VotoController {
         @Body() resource: RegistroVotoResource,
         @Res() response: Response
     ){
-        const pauta = await this.pautasService.findById(idPauta);
 
+        const pauta = await this.pautasService.findById(idPauta);
+        
         if(!pauta){
             return response
-                    .status(HttpStatus.NOT_FOUND)
-                    .send(new ErrorResponse("Pauta não encontrada."));
+            .status(HttpStatus.NOT_FOUND)
+            .send(new ErrorResponse("Pauta não encontrada."));
         }
+        await this.votoService.resultado(pauta);
 
         const result = await this.votoService.registrarVoto(pauta, resource.cpf, resource.opcaoVoto);
 

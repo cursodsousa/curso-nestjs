@@ -55,4 +55,40 @@ export class VotoService {
 
         return !!voto;
     }
+
+    async resultado(pauta: Pauta) : Promise<void>{
+        const votos = await this.buscarVotos(pauta);
+
+        const votosSim = votos
+            .filter(v => v.opcaoVoto == OpcaoVoto.SIM)
+            .length
+
+        const votosNao = votos
+            .filter(v => v.opcaoVoto == OpcaoVoto.NAO)
+            .length
+
+        const posicaoVencedora = this.obterPosicaoGanhadora(votosSim, votosNao);
+
+        console.log("Votos SIM ", votosSim);
+        console.log("Votos N ", votosNao);
+        console.log("posicaoVencedora", posicaoVencedora);
+    }
+
+    obterPosicaoGanhadora(sim: number, nao: number) : OpcaoVoto {
+        if(nao == sim){
+            return null;
+        }
+
+        return sim > nao ? OpcaoVoto.SIM : OpcaoVoto.NAO;
+    }
+
+    async buscarVotos(pauta: Pauta) : Promise<Voto[]> {
+        return await this.votoRepository.find({
+            where: {
+                pauta: {
+                    id: pauta.id
+                }
+            }
+        })
+    }
 }
