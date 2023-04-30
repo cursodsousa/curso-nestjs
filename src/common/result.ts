@@ -1,7 +1,7 @@
-export class Result<T> {
+export class Result<T, E> {
     constructor(
         public value: T, 
-        public error: Error
+        public error: E
     ){}
 
     isError(){
