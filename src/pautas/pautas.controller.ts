@@ -1,4 +1,4 @@
-import { Controller, Body, Res, Post, HttpStatus, Get, Param } from '@nestjs/common';
+import { Controller, Body, Res, Post, HttpStatus, Get, Param, Logger } from '@nestjs/common';
 import { Response } from 'express'
 import { PautasService } from './pautas.service'
 import { CriarPautaResource, NovaSessaoResource, toDomain, toRepresentation } from './pautas.resource'
@@ -7,6 +7,8 @@ import { ErrorResponse } from 'src/common/erro.resource';
 
 @Controller('pautas')
 export class PautasController {
+
+    private readonly logger = new Logger(PautasController.name);
 
     constructor(
         private readonly service: PautasService
@@ -30,6 +32,9 @@ export class PautasController {
 
     @Get()
     async list(@Res() response: Response){
+        this.logger.log('Listando as Pautas');
+        this.logger.debug('listando as pautas debug');
+        this.logger.error('error logger');
         const result = await this.service.findAll();
         return response.status(HttpStatus.OK).send( result.map(toRepresentation) )
     }
