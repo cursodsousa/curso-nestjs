@@ -13,7 +13,7 @@ export class VotoController {
         private readonly votoService: VotoService
     ){}
 
-    @Post()
+    @Post('')
     async registrarVoto(
         @Param('id') idPauta: string,
         @Body() resource: RegistroVotoResource,
