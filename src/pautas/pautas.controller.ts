@@ -1,28 +1,38 @@
-import { Controller, Body, Res, Post, HttpStatus, Get, Param } from '@nestjs/common';
+import { Controller, Body, Res, Post, HttpStatus, Get, Param, Logger } from '@nestjs/common';
 import { Response } from 'express'
 import { PautasService } from './pautas.service'
 import { CriarPautaResource, NovaSessaoResource, toDomain, toRepresentation } from './pautas.resource'
 import { Pauta } from './pauta.entity';
 import { ErrorResponse } from 'src/common/erro.resource';
+import { ApiTags, ApiOperation } from '@nestjs/swagger'
 
 @Controller('pautas')
+@ApiTags('Pautas')
 export class PautasController {
+
+    private readonly logger = new Logger(PautasController.name)
 
     constructor(
         private readonly service: PautasService
     ){}
 
     @Post()
+    @ApiOperation({ description: 'Criar uma Pauta' })
     async save( @Body() pauta: CriarPautaResource, @Res() response: Response ){
+
+        this.logger.log('Criando nova pauta');
+
         const pautaDomain: Pauta = toDomain(pauta);
         const result = await this.service.save(pautaDomain)
 
         if(result.isError()){
+            this.logger.error('Erro ao tentar criar nova pauta: ' + result.error.message)
             return response
                     .status(HttpStatus.CONFLICT)
                     .send(new ErrorResponse(result.error.message));
         }
 
+        this.logger.log('Pauta cadastrada com sucesso: '+ pauta.descricao + '.')
         return response
                 .status(HttpStatus.CREATED)
                 .send(toRepresentation(result.value));

@@ -2,8 +2,10 @@ import { Controller, Res, Get, Post, Body, Param, Put, Delete } from '@nestjs/co
 import { Response } from 'express'
 import { PeopleService } from './people.service'
 import { Person, PersonUpdatingRequest } from './person'
+import { ApiTags } from '@nestjs/swagger'
 
 @Controller('people')
+@ApiTags('Pessoas')
 export class PeopleController {
 
     constructor(

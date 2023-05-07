@@ -4,8 +4,10 @@ import { PautasService } from 'src/pautas/pautas.service';
 import { VotoService } from './voto.service';
 import { RegistroVotoResource } from './voto.resource';
 import { ErrorResponse } from 'src/common/erro.resource';
+import { ApiTags } from '@nestjs/swagger'
 
 @Controller('pautas/:id/votos')
+@ApiTags('Votos')
 export class VotoController {
 
     constructor(
